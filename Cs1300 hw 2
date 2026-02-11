@@ -1,0 +1,50 @@
+first = input("Trent: ").title()
+last = input("Ford: ").title()
+birth_year = int(input("2007: "))
+hobby = input("Reading: ").title()
+
+age = 2026 - birth_year
+
+border = "=" * 36
+
+print(border)
+print("USER PROFILE CARD")
+print(border)
+print(f"Name: {first} {last}")
+print(f"Age: {age}")
+print(f"Hobby: {hobby}")
+print("-" * 36)
+print("Thank you for creating your profile!")
+print(border)
+
+
+print("=== TEXT ANALYZER ===")
+
+sentence = input("Enter a sentence: ")
+
+total_chars = len(sentence)
+no_spaces = len(sentence.replace(" ", ""))
+words = len(sentence.split())
+
+vowels = "aeiou"
+vowel_count = sum(1 for ch in sentence.lower() if ch in vowels)
+
+print("--- Analysis Results ---")
+print(f"Total characters (with spaces): {total_chars}")
+print(f"Total characters (without spaces): {no_spaces}")
+print(f"Number of words: {words}")
+print(f"Number of vowels: {vowel_count}")
+print(f"Uppercase version: {sentence.upper()}")
+print(f"Lowercase version: {sentence.lower()}")
+print(f"Reversed: {sentence[::-1]}")
+print("Starts with capital:", "Yes" if sentence[:1].isupper() else "No")
+print("Ends with punctuation:", "Yes" if sentence.endswith(('.', '!', '?')) else "No")
+
+word = input("Enter a word or phrase: ")
+
+clean = word.lower().replace(" ", "")
+
+if clean == clean[::-1]:
+    print("Palindrome")
+else:
+    print("Not a palindrome")
