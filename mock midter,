@@ -1,0 +1,164 @@
+temperature = float(input("Enter temperature: "))
+scale = input("Enter scale (C/F): ").strip().upper()
+
+if scale == "C":
+    converted = temperature * 9/5 + 32
+    print(f"{temperature:.1f}°C = {converted:.1f}°F")
+elif scale == "F":
+    converted = (temperature - 32) * 5/9
+    print(f"{temperature:.1f}°F = {converted:.1f}°C")
+else:
+    print("Invalid scale.")
+
+
+problem 2
+sentence = input("Enter a sentence: ")
+
+total_chars = len(sentence)
+uppercase = 0
+lowercase = 0
+digits = 0
+spaces = 0
+
+for ch in sentence:
+    if ch.isupper():
+        uppercase += 1
+    elif ch.islower():
+        lowercase += 1
+    elif ch.isdigit():
+        digits += 1
+    elif ch == " ":
+        spaces += 1
+
+print(f"Total characters: {total_chars}")
+print(f"Uppercase letters: {uppercase}")
+print(f"Lowercase letters: {lowercase}")
+print(f"Digits: {digits}")
+print(f"Spaces: {spaces}")
+print(f"Reversed: {sentence[::-1]}")
+
+Problem 3: List Operations Toolkit
+
+numbers = [15, 8, 23, 42, 4, 16, 31, 7, 19, 11]
+
+# 1
+print("Original:", numbers)
+
+# 2
+print(f"First: {numbers[0]}, Last: {numbers[-1]}")
+
+# 3
+print("Middle 4:", numbers[3:7])
+
+# 4
+numbers.append(99)
+print("After append 99:", numbers)
+
+# 5
+numbers.insert(0, 0)
+print("After insert 0 at beginning:", numbers)
+
+# 6
+numbers.remove(42)
+print("After removing 42:", numbers)
+
+# 7
+removed = numbers.pop()
+print("Popped value:", removed)
+print("After pop:", numbers)
+
+# 8
+print("Is 23 in list?", 23 in numbers)
+
+# 9
+print("Index of 16:", numbers.index(16))
+
+# 10
+print("Final list:", numbers)
+print("Length:", len(numbers))
+
+Problem 4: Course Eligibility Checker
+
+gpa = float(input("Enter GPA (0.0-4.0): "))
+credits = int(input("Enter credit hours completed: "))
+prereq = input("Prerequisite completed? (yes/no): ").strip().lower()
+
+if gpa >= 3.5 and credits >= 60 and prereq == "yes":
+    status = "Approved: You meet all requirements."
+elif gpa >= 3.5 and credits >= 60 and prereq != "yes":
+    status = "Conditionally approved: Complete the prerequisite first."
+elif gpa >= 3.0 and credits >= 45:
+    status = "Waitlisted: You may be admitted if space is available."
+elif gpa >= 2.0:
+    status = "Not eligible yet: Raise your GPA or earn more credits."
+else:
+    status = "Denied: GPA is below minimum threshold."
+
+print("\n--- Registration Summary ---")
+print(f"GPA: {gpa:.2f}")
+print(f"Credits: {credits}")
+print(f"Prerequisite: {prereq.capitalize()}")
+print(f"Status: {status}")
+print("----------------------------")
+
+Problem 5: Student Roster Manager
+
+names = ["Alice", "Bob", "Charlie", "Diana", "Eve"]
+scores = [88, 72, 95, 64, 81]
+
+# Task 1: Print roster
+print("=== CLASS ROSTER ===")
+for i in range(len(names)):
+    print(f"{i+1}. {names[i]} - {scores[i]}")
+print("====================")
+
+# Task 2: Highest and lowest score
+highest_index = 0
+lowest_index = 0
+
+for i in range(1, len(scores)):
+    if scores[i] > scores[highest_index]:
+        highest_index = i
+    if scores[i] < scores[lowest_index]:
+        lowest_index = i
+
+print("\nHighest:", names[highest_index], "-", scores[highest_index])
+print("Lowest:", names[lowest_index], "-", scores[lowest_index])
+
+# Task 3: Class average
+total = 0
+for score in scores:
+    total += score
+
+average = total / len(scores)
+print(f"\nClass Average: {average:.2f}")
+
+# Task 4: Grade report
+print("\n--- Grade Report ---")
+
+for i in range(len(scores)):
+    score = scores[i]
+    
+    if score >= 90:
+        grade = "A"
+    elif score >= 80:
+        grade = "B"
+    elif score >= 70:
+        grade = "C"
+    elif score >= 60:
+        grade = "D"
+    else:
+        grade = "F"
+    
+    print(f"{names[i]}: {score} -> {grade}")
+
+# Task 5: Add and remove student
+names.append("Frank")
+scores.append(77)
+
+remove_index = names.index("Diana")
+names.pop(remove_index)
+scores.pop(remove_index)
+
+print("\nUpdated roster length:", len(names))
+
