@@ -1,0 +1,60 @@
+Problem #2
+sentence = "Steph Curry is the goat"
+
+# 1. Total number of characters (including spaces)
+total_characters = len(sentence)
+
+# 2. Total number of words (split by spaces)
+words = sentence.split()
+total_words = len(words)
+
+# 3 & 4. Count vowels and consonants
+vowels = "aeiou"
+vowel_count = 0
+consonant_count = 0
+non_space_characters = 0
+
+for ch in sentence.lower():
+    if ch.isalpha():
+        non_space_characters += 1
+        if ch in vowels:
+            vowel_count += 1
+        else:
+            consonant_count += 1
+
+# 5. Average word length
+if total_words > 0:
+    average_word_length = non_space_characters / total_words
+else:
+    average_word_length = 0
+
+# 6. Longest word
+longest_word = ""
+for word in words:
+    if len(word) > len(longest_word):
+        longest_word = word
+
+# Output
+print("--- Sentence Analysis ---")
+print("Total characters:", total_characters)
+print("Total words:", total_words)
+print("Vowels:", vowel_count)
+print("Consonants:", consonant_count)
+print(f"Average word length: {average_word_length:.2f}")
+print("Longest word:", longest_word)
+
+
+
+Problem 1
+distance = float(input("Enter distance value: "))
+unit = input("Enter unit (km/mi): ").strip().lower()
+
+if unit == "km":
+    converted = distance * 0.621371
+    print(f"{distance:.2f} km = {converted:.2f} mi")
+elif unit == "mi":
+    converted = distance * 1.60934
+    print(f"{distance:.2f} mi = {converted:.2f} km")
+else:
+    print("invalid unit.")
+
