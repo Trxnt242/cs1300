@@ -1,0 +1,194 @@
+ Movie Ticket Pricing
+
+age = int(input("Enter your age: "))
+matinee_input = input("Is this a matinee showing? (yes/no): ").strip().lower()
+
+# convert to boolean using ternary
+matinee = True if matinee_input == "yes" else False
+
+if age < 0:
+    print("Error: Age cannot be negative.")
+
+elif age < 13:
+    group = "Child"
+    if matinee:
+        price = 6.00
+    else:
+        price = 8.00
+
+elif age <= 17:
+    group = "Teen"
+    if matinee:
+        price = 7.00
+    else:
+        price = 10.00
+
+elif age <= 64:
+    group = "Adult"
+    if matinee:
+        price = 8.00
+    else:
+        price = 13.00
+
+else:
+    group = "Senior"
+    if matinee:
+        price = 6.00
+    else:
+        price = 7.00
+
+print("Age group:", group)
+print(f"Ticket price: ${price:.2f}")
+
+
+Student Profile Validator
+
+errors = []
+
+student_id = input("Enter student ID: ")
+name = input("Enter full name: ")
+age_input = input("Enter age: ")
+major = input("Enter major: ")
+
+# Student ID validation
+if len(student_id) != 8:
+    errors.append(f"Student ID must be exactly 8 characters (got {len(student_id)})")
+
+if not student_id[0].isalpha():
+    errors.append("Student ID must start with a letter")
+
+if not student_id[1:].isdigit():
+    errors.append("Last 7 characters must be digits")
+
+# Name validation
+if len(name.strip()) < 2:
+    errors.append("Name cannot be empty")
+
+# Age validation
+try:
+    age = int(age_input)
+    if age < 16 or age > 99:
+        errors.append("Age must be between 16 and 99")
+except:
+    errors.append("Age must be a valid integer")
+
+# Major validation
+valid_majors = ["CS", "IT", "CE", "DS"]
+
+if major.upper() not in valid_majors:
+    errors.append(f"Major must be one of: CS, IT, CE, DS (got {major})")
+
+# Output
+if len(errors) == 0:
+    print("✓ Profile created successfully!")
+    print("Student ID:", student_id)
+    print("Name:", name)
+    print("Age:", age)
+    print("Major:", major.upper())
+else:
+    print("✗ Profile has errors:")
+    for e in errors:
+        print("-", e)
+
+ Campus Café Menu
+
+print("==============================")
+print("CAMPUS CAFÉ ORDER SYSTEM")
+print("==============================")
+print("1. Coffee - $3.50")
+print("2. Sandwich - $6.00")
+print("3. Salad - $5.50")
+print("4. Combo - $8.00")
+print("5. Exit")
+print("==============================")
+
+choice = input("Enter your choice (1-5): ")
+
+item = ""
+price = 0
+
+if choice == "1":
+    item = "Coffee"
+    size = input("Enter size (small/medium/large): ").lower()
+
+    if size == "medium":
+        price = 4.50
+        item += " Medium"
+    elif size == "large":
+        price = 5.50
+        item += " Large"
+    else:
+        price = 3.50
+        item += " Small"
+
+elif choice == "2":
+    item = "Sandwich"
+    price = 6.00
+    cheese = input("Add cheese? (yes/no): ").lower()
+
+    if cheese == "yes":
+        price += 0.75
+        item += " + Cheese"
+
+elif choice == "3":
+    item = "Salad"
+    price = 5.50
+    dressing = input("Choose dressing (ranch/italian/vinaigrette/none): ").lower()
+
+    if dressing not in ["ranch", "italian", "vinaigrette", "none"]:
+        dressing = "none"
+        print("Invalid dressing. Defaulting to none.")
+
+    item += f" ({dressing})"
+
+elif choice == "4":
+    item = "Combo"
+    price = 8.00
+
+    size = input("Coffee size (small/medium/large): ").lower()
+
+    if size == "medium":
+        price += 1
+    elif size == "large":
+        price += 2
+
+    cheese = input("Add cheese to sandwich? (yes/no): ").lower()
+
+    if cheese == "yes":
+        price += 0.75
+
+elif choice == "5":
+    print("Goodbye!")
+    exit()
+
+else:
+    print("Invalid choice")
+    exit()
+
+name = input("Enter your name: ").strip()
+
+try:
+    quantity = int(input("How many? "))
+    if quantity <= 0:
+        print("Quantity must be positive.")
+        exit()
+except:
+    print("Invalid quantity.")
+    exit()
+
+subtotal = price * quantity
+tax = subtotal * 0.07
+total = subtotal + tax
+
+print("==============================")
+print("ORDER RECEIPT")
+print("==============================")
+print("Customer:", name)
+print("Item:", item)
+print("Quantity:", quantity)
+print(f"Unit Price: ${price:.2f}")
+print(f"Subtotal: ${subtotal:.2f}")
+print(f"Tax (7%): ${tax:.2f}")
+print(f"Total: ${total:.2f}")
+print("==============================")
+print("Thank you for your order!")
