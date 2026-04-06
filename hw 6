@@ -1,0 +1,248 @@
+
+
+# ----- Menu Data -----
+sizes = ["Personal (8\")", "Medium (12\")", "Large (16\")", "Party (20\")"]
+size_prices = [6.99, 9.99, 12.99, 16.99]
+
+topping_names = [
+    "Pepperoni", "Mushrooms", "Green Peppers", "Onions",
+    "Sausage", "Bacon", "Extra Cheese", "Pineapple"
+]
+topping_price = 1.50  # each topping, any size
+
+# ----- Order Storage -----
+order_descriptions = []
+order_prices = []
+order_size_choices = []   # used for size breakdown
+discount_percent = 0.0
+
+print("Welcome to the CS 1300 Pizza Shop!\n")
+
+# ===== ORDERING LOOP (Ex 5 wraps Ex 1-4) =====
+while True:
+
+    # --- Ask if user wants to start/continue ordering ---
+    if len(order_descriptions) == 0:
+        start_order = input("Would you like to order a pizza? (yes/no): ").strip().lower()
+        while start_order not in ["yes", "y", "no", "n"]:
+            print("Please enter yes or no.")
+            start_order = input("Would you like to order a pizza? (yes/no): ").strip().lower()
+
+        if start_order in ["no", "n"]:
+            break
+
+  
+    # EXERCISE 1
+    # ============================================
+    print("\n==============================")
+    print("PIZZA SIZES")
+    print("==============================")
+    for i in range(len(sizes)):
+        print(f"{i + 1}. {sizes[i]:<18} ${size_prices[i]:>5.2f}")
+    print("==============================")
+
+    # ============================================
+    # EXERCISE 2 
+    # ============================================
+    while True:
+        size_input = input("Pick a size (1-4): ").strip()
+
+        try:
+            size_num = int(size_input)
+        except ValueError:
+            print("Please enter a number!")
+            continue
+
+        if size_num < 1 or size_num > 4:
+            print("Choose 1-4.")
+            continue
+
+        size_choice = size_num - 1   # 0-based index
+        base_price = size_prices[size_choice]
+        break
+
+  
+    # EXERCISE 3 
+    
+    selected_toppings = []  # Reset for each pizza!
+
+    print(f"\nAvailable toppings (${topping_price:.2f} each):")
+    for i in range(len(topping_names)):
+        print(f"{i + 1}. {topping_names[i]}")
+
+    while True:
+        topping_input = input("Add topping # (or 'done'): ").strip().lower()
+
+        if topping_input == "done":
+            break
+
+        try:
+            topping_num = int(topping_input)
+        except ValueError:
+            print("Please enter a topping number or 'done'.")
+            continue
+
+        if topping_num < 1 or topping_num > len(topping_names):
+            print("That topping number is not on the menu.")
+            continue
+
+        topping_name = topping_names[topping_num - 1]
+
+        if topping_name in selected_toppings:
+            print(f"Already added {topping_name}!")
+            continue
+
+        selected_toppings.append(topping_name)
+        print(f"✓ Added {topping_name}")
+
+
+    # EXERCISE 4 
+    # ============================================
+    pizza_price = base_price + (len(selected_toppings) * topping_price)
+
+    if len(selected_toppings) == 0:
+        topping_text = "Cheese"
+    else:
+        topping_text = ", ".join(selected_toppings)
+
+    pizza_description = f"{sizes[size_choice]} {topping_text}"
+
+    order_descriptions.append(pizza_description)
+    order_prices.append(pizza_price)
+    order_size_choices.append(size_choice)
+
+    print(f"\nAdded to order: {pizza_description}")
+    print(f"Pizza price: ${pizza_price:.2f}")
+
+    # EXERCISE 5 — Order another pizza?
+    # ============================================
+    while True:
+        another = input("\nOrder another pizza? (yes/no): ").strip().lower()
+
+        if another in ["yes", "y"]:
+            break
+        elif another in ["no", "n"]:
+            print("\nFinishing your order...")
+            another = "no"
+            break
+        else:
+            print("Please enter yes or no.")
+
+    if another == "no":
+        break
+
+
+# ===== POST-ORDER =====
+if not order_descriptions:
+    print("\nNo pizzas ordered. See you next time!")
+else:
+    # ============================================
+    # EXERCISE 8 
+    # ============================================
+    print("\nDo you have a discount code?")
+    attempts = 0
+
+    while attempts < 3:
+        code = input("Enter code (or 'none' to skip): ").strip().upper()
+
+        if code == "NONE":
+            print("No discount applied.")
+            break
+        elif code == "STUDENT10":
+            discount_percent = 0.10
+            print("✓ STUDENT10 applied (10% off)")
+            break
+        elif code == "HALFOFF":
+            discount_percent = 0.50
+            print("✓ HALFOFF applied (50% off)")
+            break
+        else:
+            attempts += 1
+            if attempts < 3:
+                print(f"Invalid code. Attempts left: {3 - attempts}")
+            else:
+                print("No discount applied.")
+
+    # ============================================
+    # EXERCISE 6 — 
+    # ============================================
+    print("\n====================================")
+    print("YOUR ORDER RECEIPT")
+    print("====================================")
+
+    subtotal = 0
+    for i in range(len(order_descriptions)):
+        print(f"{i + 1}. {order_descriptions[i]}")
+        print(f"   ${order_prices[i]:>6.2f}")
+        subtotal += order_prices[i]
+
+    discount_amount = subtotal * discount_percent
+    discounted_subtotal = subtotal - discount_amount
+    tax = discounted_subtotal * 0.07
+    total = discounted_subtotal + tax
+
+    print("------------------------------------")
+    print(f"Subtotal:           ${subtotal:>6.2f}")
+
+    if discount_percent > 0:
+        print(f"Discount:          -${discount_amount:>6.2f}")
+
+    print(f"Tax (7%):           ${tax:>6.2f}")
+    print(f"Total:              ${total:>6.2f}")
+    print("====================================")
+
+    # ============================================
+    # EXERCISE 7 
+    # ============================================
+    max_price = order_prices[0]
+    max_index = 0
+
+    min_price = order_prices[0]
+    min_index = 0
+
+    for i in range(len(order_prices)):
+        if order_prices[i] > max_price:
+            max_price = order_prices[i]
+            max_index = i
+
+        if order_prices[i] < min_price:
+            min_price = order_prices[i]
+            min_index = i
+
+    print("\nMost expensive pizza:")
+    print(f"{order_descriptions[max_index]} - ${order_prices[max_index]:.2f}")
+
+    print("\nCheapest pizza:")
+    print(f"{order_descriptions[min_index]} - ${order_prices[min_index]:.2f}")
+
+    # ============================================
+    # EXERCISE 9 
+    # ============================================
+    print("\nPIZZA SIZE BREAKDOWN")
+    print("------------------------------")
+
+    personal_count = 0
+    medium_count = 0
+    large_count = 0
+    party_count = 0
+
+    for choice in order_size_choices:
+        if choice == 0:
+            personal_count += 1
+        elif choice == 1:
+            medium_count += 1
+        elif choice == 2:
+            large_count += 1
+        elif choice == 3:
+            party_count += 1
+
+    print(f"Personal (8\"): {personal_count}")
+    print(f"Medium (12\"):  {medium_count}")
+    print(f"Large (16\"):   {large_count}")
+    print(f"Party (20\"):   {party_count}")
+
+    Stretch Goal — Average price per pizza
+    average_price = subtotal / len(order_prices)
+    print(f"\nAverage price per pizza: ${average_price:.2f}")
+
+    print("\nThank you for your order!")
