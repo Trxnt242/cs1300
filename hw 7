@@ -1,0 +1,74 @@
+def main():
+    # Step 1: Get student info
+    name = get_student_name()
+    scores = get_exam_scores()
+
+    # Step 2: Calculate results
+    average = calculate_average(scores)
+    grade = determine_letter_grade(average)
+    standing = determine_standing(average)
+
+    # Step 3: Display report
+    display_report(name, scores, average, grade, standing)
+
+def get_student_name():
+    pass
+
+def get_exam_scores():
+    pass
+
+def calculate_average(scores):
+    pass
+
+def determine_letter_grade(average):
+    pass
+
+def determine_standing(average):
+    pass
+
+def display_report(name, scores, average, grade, standing):
+    pass
+
+def main():
+    name = get_student_name()
+    scores = get_exam_scores(3)
+
+    average = calculate_average(scores)
+    grade = determine_letter_grade(average)
+    standing = determine_standing(average)
+
+    display_report(name, scores, average, grade, standing)
+
+def get_student_name():
+    """Prompt for and return student name."""
+    pass
+
+
+def is_valid_score(score):
+    """Return True if score is between 0 and 100."""
+    pass
+
+
+def get_exam_scores(num_exams):
+    """Collect and return a list of validated exam scores."""
+    pass
+
+
+def calculate_average(scores):
+    """Return the average of a list of scores."""
+    pass
+
+
+def determine_letter_grade(average):
+    """Return letter grade based on average."""
+    pass
+
+
+def determine_standing(average):
+    """Return academic standing based on average."""
+    pass
+
+
+def display_report(name, scores, average, grade, standing):
+    """Display formatted grade report."""
+    pass
