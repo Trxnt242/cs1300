@@ -1,0 +1,161 @@
+# Create RGB tuple
+rgb_color = (255, 128, 0)
+
+# Print each value
+print(rgb_color[0])  # Red
+print(rgb_color[1])  # Green
+print(rgb_color[2])  # Blue
+
+# Create palette list and add tuple
+palette = []
+palette.append(rgb_color)
+
+print(palette)
+
+# Create student tuples
+student1 = ("Alice", 90, 20)
+student2 = ("Bob", 85, 19)
+student3 = ("Charlie", 78, 21)
+
+# Store in list
+classroom = [student1, student2, student3]
+
+# Print second student's name
+print(classroom[1][0])
+
+# Unpack first student
+name, grade, age = classroom[0]
+print(f"{name} is {age} years old with a grade of {grade}.")
+
+# Original tuple
+student = ("Alice", [85, 90, 78], "B")
+
+print("Original:", student)
+
+# Add fourth exam
+student[1].append(92)
+
+# Calculate new average
+avg = sum(student[1]) / len(student[1])
+
+# Determine new grade
+if avg >= 90:
+    new_grade = "A"
+elif avg >= 80:
+    new_grade = "B"
+elif avg >= 70:
+    new_grade = "C"
+elif avg >= 60:
+    new_grade = "D"
+else:
+    new_grade = "F"
+
+# Create new tuple (since tuples are immutable)
+updated_student = (student[0], student[1], new_grade)
+
+print("Updated:", updated_student)
+
+grades = [85, 90, 78]
+today = (4, 22, 2026)
+
+def boost_grades(grades):
+    for i in range(len(grades)):
+        grades[i] += 5
+
+boost_grades(grades)
+
+print("Grades:", grades)
+print("Date:", today)
+
+# We use a list for grades because they change.
+# We use a tuple for the date because it should not change.
+
+def find_range(*args):
+    return (min(args), max(args))
+
+# Test with numbers
+print(find_range(3, 7, 2))
+print(find_range(10, 5, 8, 12, 3, 6, 9))
+
+# Using unpacking
+test_scores = [78, 92, 85, 88, 91]
+print(find_range(*test_scores))
+
+def calculate_statistics(*args):
+    count = len(args)
+    total = sum(args)
+    avg = total / count if count > 0 else 0
+    return (count, total, avg)
+
+def update_student_records(records, bonus):
+    updated = []
+    for name, grade in records:
+        updated.append((name, grade + bonus))
+    return updated
+
+# Test data
+students = [("Alice", 85), ("Bob", 90), ("Charlie", 78)]
+
+stats = calculate_statistics(85, 90, 78)
+print("Stats:", stats)
+
+updated_students = update_student_records(students, 5)
+print("Updated Records:", updated_students)
+
+grid = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+print("Grid:", grid)
+
+# Center value
+print("Center:", grid[1][1])
+
+# Print rows
+for row in grid:
+    for val in row:
+        print(val, end=" ")
+    print()
+scores = [45, 78, 92, 61, 88, 73, 55, 90, 82]
+
+# Passing grades
+passing_grades = [s for s in scores if s >= 60]
+
+# Convert to letter grades
+letter_grades = [
+    "A" if s >= 90 else
+    "B" if s >= 80 else
+    "C" if s >= 70 else
+    "D"
+    for s in passing_grades
+]
+
+print("Passing:", passing_grades)
+print("Letters:", letter_grades)
+
+# 4x4 multiplication table
+table = [[i * j for j in range(1, 5)] for i in range(1, 5)]
+
+# Print formatted
+for row in table:
+    print(row)
+
+# Function to sum diagonal
+def sum_diagonal(matrix):
+    total = 0
+    for i in range(len(matrix)):
+        total += matrix[i][i]
+    return total
+
+print("Diagonal Sum:", sum_diagonal(table))
+
+# Generator for even numbers
+even_gen = (num for row in table for num in row if num % 2 == 0)
+
+print("First 5 even numbers:")
+for _ in range(5):
+    print(next(even_gen))
+
+
