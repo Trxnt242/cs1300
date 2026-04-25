@@ -72,3 +72,234 @@ def determine_standing(average):
 def display_report(name, scores, average, grade, standing):
     """Display formatted grade report."""
     pass
+
+
+"""
+Student Grade Tracker
+CS 1300 — Lecture 5 Mini-Project
+
+A modular program that collects exam scores,
+calculates a letter grade and academic standing,
+and displays a formatted report.
+
+Includes:
+- Helper functions
+- Input validation
+- Testing suite
+"""
+
+# -----------------------------
+# INPUT FUNCTIONS
+# -----------------------------
+
+def get_student_name():
+    """Prompt for and return student name."""
+    return input("Enter student name: ")
+
+
+def is_valid_score(score_str):
+    """
+    Validate score input.
+    
+    Args:
+        score_str (str): User input
+        
+    Returns:
+        bool: True if valid score (0–100), False otherwise
+    """
+    if not score_str.isdigit():
+        return False
+    score = int(score_str)
+    return 0 <= score <= 100
+
+
+def get_validated_score(prompt):
+    """
+    Get a valid score using retry loop.
+    
+    Args:
+        prompt (str): Input prompt
+        
+    Returns:
+        int: Valid score
+    """
+    while True:
+        value = input(prompt)
+        if is_valid_score(value):
+            return int(value)
+        print("Invalid score! Enter 0–100.")
+
+
+def get_exam_scores(num_exams):
+    """
+    Collect multiple exam scores.
+    
+    Args:
+        num_exams (int): Number of exams
+        
+    Returns:
+        list: List of valid scores
+    """
+    scores = []
+    for i in range(num_exams):
+        score = get_validated_score(f"Exam {i+1} score: ")
+        scores.append(score)
+    return scores
+
+
+# -----------------------------
+# CALCULATION FUNCTIONS
+# -----------------------------
+
+def calculate_average(scores):
+    """
+    Calculate average score.
+    
+    Args:
+        scores (list): List of numbers
+        
+    Returns:
+        float: Average score
+    """
+    if len(scores) == 0:
+        return 0
+    return sum(scores) / len(scores)
+
+
+def determine_letter_grade(avg):
+    """
+    Determine letter grade.
+    
+    Args:
+        avg (float): Average score
+        
+    Returns:
+        str: Letter grade
+    """
+    if avg >= 90:
+        return "A"
+    elif avg >= 80:
+        return "B"
+    elif avg >= 70:
+        return "C"
+    elif avg >= 60:
+        return "D"
+    else:
+        return "F"
+
+
+def determine_standing(avg):
+    """
+    Determine academic standing.
+    
+    Args:
+        avg (float): Average score
+        
+    Returns:
+        str: Academic standing
+    """
+    if avg >= 90:
+        return "Dean's List"
+    elif avg >= 70:
+        return "Good Standing"
+    elif avg >= 60:
+        return "Academic Probation"
+    else:
+        return "Academic Warning"
+
+
+# -----------------------------
+# OUTPUT FUNCTIONS
+# -----------------------------
+
+def print_divider(char="=", length=30):
+    """Print a divider line."""
+    print(char * length)
+
+
+def display_report(name, scores, avg, grade, standing):
+    """
+    Display formatted report.
+    
+    Args:
+        name (str): Student name
+        scores (list): Exam scores
+        avg (float): Average
+        grade (str): Letter grade
+        standing (str): Academic standing
+    """
+    print_divider("=")
+    print("STUDENT GRADE REPORT")
+    print_divider("=")
+
+    print(f"Student: {name}")
+    for i, s in enumerate(scores, 1):
+        print(f"Exam {i}: {s}")
+
+    print("-" * 30)
+    print(f"Average: {avg:.2f}")
+    print(f"Grade: {grade}")
+    print(f"Standing: {standing}")
+    print_divider("=")
+
+
+# -----------------------------
+# MAIN PROGRAM
+# -----------------------------
+
+def main():
+    """Run the full grade tracker program."""
+    name = get_student_name()
+    scores = get_exam_scores(3)
+
+    avg = calculate_average(scores)
+    grade = determine_letter_grade(avg)
+    standing = determine_standing(avg)
+
+    display_report(name, scores, avg, grade, standing)
+
+
+# -----------------------------
+# TESTING FUNCTIONS
+# -----------------------------
+
+def test_grade_tracker():
+    """Test core calculation functions."""
+    print("\nRunning Tests...\n")
+
+    # Test average
+    print("Test Average:")
+    if calculate_average([90, 80, 70]) == 80:
+        print("PASS")
+    else:
+        print("FAIL")
+
+    # Test letter grade
+    print("Test Letter Grade:")
+    if determine_letter_grade(85) == "B":
+        print("PASS")
+    else:
+        print("FAIL")
+
+    # Test standing
+    print("Test Standing:")
+    if determine_standing(95) == "Dean's List":
+        print("PASS")
+    else:
+        print("FAIL")
+
+    # Edge case
+    print("Test Empty Scores:")
+    if calculate_average([]) == 0:
+        print("PASS")
+    else:
+        print("FAIL")
+
+
+# -----------------------------
+# RUN PROGRAM
+# -----------------------------
+
+if __name__ == "__main__":
+    test_grade_tracker()  # Run tests first
+    main()                # Then run program
